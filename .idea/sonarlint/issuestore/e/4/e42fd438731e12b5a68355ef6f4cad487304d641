@@ -1,8 +1,0 @@
-
-H
-java:S1168+"+Return an empty collection instead of null.(•πÔç8ÀÒÑ¶ª1
-X	java:S1255"<This block of commented-out lines of code should be removed.(∫±úÂ8Ç ”√ª1
-p
-java:S6204â"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(‰“êà8‘ÒÑ¶ª1
-h
-java:S1612à"EReplace this lambda with method reference 'basketItemService::toDto'.(≈ÊŒ˝ˇˇˇˇ8’ÒÑ¶ª1

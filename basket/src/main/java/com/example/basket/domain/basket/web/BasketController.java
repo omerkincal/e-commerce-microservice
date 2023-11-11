@@ -23,22 +23,23 @@ public class BasketController {
         return new ResponseEntity<>(toResponse(service.addProductToBasket(request.toDto())), HttpStatus.OK);
     }
 
-    /*@GetMapping("{customerId}")
-    public BasketResponse getBasketById(@PathVariable String customerId){
-        return toResponse(service.getBasketById(customerId));
-    }*/
+    @GetMapping("{id}")
+    public BasketResponse getBasketById(@PathVariable(name = "id") String userId){
+        return toResponse(service.findBasket(userId));
+    }
 
     @DeleteMapping("{basketItemId}")
-    public String delete(@PathVariable String basketItemId){
-        return service.removeProductFromBasket(basketItemId);
+    public ResponseEntity<String> delete(@PathVariable String basketItemId){
+        try {
+            service.removeProductFromBasket(basketItemId);
+            return ResponseEntity.ok("Successfully deleted");
+        }catch (Exception e){
+            return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
+        }
     }
 
 
     public BasketResponse toResponse(BasketDto basketDto){
-
-
-
-         List<BasketItemDto> basketItemList;
         return BasketResponse.builder()
                 .basketId(basketDto.getBasketId())
                 .user(service.getUser(String.valueOf(basketDto.getUserId())))

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,13 +40,23 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public List<BasketDto> findBasketByCustomerId(String customerId) {
-        return null;
+    public BasketDto findBasket(String userId) {
+        return toDto(repository.findBasketByUserId(Long.parseLong(userId)));
     }
 
+    @Transactional
     @Override
-    public String removeProductFromBasket(String basketItemId) {
-        return null;
+    public void removeProductFromBasket(String basketItemId) {
+        basketItemService.delete(basketItemId);
+        /*Basket basket = repository.findBasketByCustomer_CustomerIdAndStatusEquals(Integer.parseInt(customerId), BASKET_STATUS_NONE);
+        List<BasketItem> basketItemList = basket.getBasketItemList();
+        for (BasketItem basketItem : basketItemList){
+            if (basketItem.getProduct().getProductId() == productId){
+                basketItemService.delete(basketItem);
+            }
+        }
+        basket.setBasketItemList(basketItemList);
+        repository.save(basket);*/
     }
 
     @Override
@@ -53,22 +64,21 @@ public class BasketServiceImpl implements BasketService {
         /* if(basketDto.getBasketItemList().get(0).getProduct().getQuantity() < basketDto.getBasketItemList().get(0).getCount()){
             throw new RuntimeException("bir problem çıktıloo");
         }*/
-        Basket basket = repository.findBasketByCustomerIdAndStatusEquals(basketDto.getUserId(), BASKET_THE_CURRENT_ONE);
+        Basket basket = repository.findBasketByUserIdAndStatusEquals(basketDto.getUserId(), BASKET_THE_CURRENT_ONE);
         if (basket != null){
-            return sepetVarUrunEkle(basket, basketDto);
+            return addProductToExistsBasket(basket, basketDto);
         }else {
-            return sepetYokYeniSepetOlustur(basketDto);
+            return basketDoesNotExist(basketDto);
         }
     }
 
-    private BasketDto sepetYokYeniSepetOlustur(BasketDto basketDto) {
+    private BasketDto basketDoesNotExist(BasketDto basketDto) {
         User user = getUser(String.valueOf(basketDto.getUserId()));
         Basket basket = new Basket();
         basket.setUserId(user.getUserId());
         basket.setStatus(BASKET_THE_CURRENT_ONE);
         List<BasketItem> basketItemList = new ArrayList<>();
         Product product = basketItemService.getProduct(String.valueOf(basketDto.getBasketItemList().get(0).getProduct().getProductId()));
-
         for(BasketItemDto dto: basketDto.getBasketItemList()){
             BasketItem basketItem = new BasketItem();
             basketItem.setCount(dto.getCount());
@@ -83,22 +93,19 @@ public class BasketServiceImpl implements BasketService {
         return toDto(basket);
     }
 
-    private BasketDto sepetVarUrunEkle(Basket basket, BasketDto basketDto) {
+    private BasketDto addProductToExistsBasket(Basket basket, BasketDto basketDto) {
         List<BasketItem> basketItemList = basket.getBasketItemList();
-
         //bu satır bir basketıtemın bir sepette zaten varmı yoksa ilk defa mı eklendiğini kontrol eder
         BasketItem basketItem = basketItemService.findBasketItemByBasketIdAndProductId(basket.getBasketId(), basketDto.getBasketItemList().get(0).getProduct().getProductId());
         if (basketItem != null){
-            Product productDto = basketItemService.getProduct(String.valueOf(basketItem.getProductId()));
-            Product product = basketItemService.toProduct(productDto);
+            Product product = basketItemService.getProduct(String.valueOf(basketItem.getProductId()));
             basketItem.setProductId(product.getProductId());
             basketItem.setCount(basketDto.getBasketItemList().get(0).getCount());
             basketItem.setBasketItemAmount(basketItem.getCount()*product.getPrice());
             basketItemService.save(basketItem);
         }else {
             BasketItem newBasketItem = new BasketItem();
-            Product productDto = basketItemService.getProduct(String.valueOf(basketDto.getBasketItemList().get(0).getProduct().getProductId()));
-            Product product = basketItemService.toProduct(productDto);
+            Product product = basketItemService.getProduct(String.valueOf(basketDto.getBasketItemList().get(0).getProduct().getProductId()));
             newBasketItem.setProductId(product.getProductId());
             newBasketItem.setCount(basketDto.getBasketItemList().get(0).getCount());
             newBasketItem.setBasketItemAmount(newBasketItem.getCount()*product.getPrice());
@@ -112,8 +119,6 @@ public class BasketServiceImpl implements BasketService {
         return toDto(basket);
     }
 
-
-
     private double calculateBasketAmount(long basketId) {
         Basket basket = repository.findBasketByBasketId(basketId);
         double totalAmount = 0;
@@ -122,10 +127,6 @@ public class BasketServiceImpl implements BasketService {
         }
         return totalAmount;
     }
-
-
-
-
 
     private BasketDto toDto(Basket basket) {
         return BasketDto.builder()

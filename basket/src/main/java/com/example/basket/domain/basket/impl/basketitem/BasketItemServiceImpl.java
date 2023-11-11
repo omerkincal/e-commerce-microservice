@@ -35,23 +35,13 @@ public class BasketItemServiceImpl implements BasketItemService {
         repository.delete(basketItem);
     }
 
-    public Product toProduct(Product productDto){
-        return Product.builder()
-                .name(productDto.getName())
-                .price(productDto.getPrice())
-                .quantity(productDto.getQuantity())
-                .categoryId(productDto.getCategoryId())
-                .productId(productDto.getProductId())
-                .build();
-    }
-
     public BasketItemDto toDto(BasketItem basketItem) {
-        Product productDto = getProduct(String.valueOf(basketItem.getProductId()));
+        Product product = getProduct(String.valueOf(basketItem.getProductId()));
         return BasketItemDto.builder()
                 .basketItemId(basketItem.getBasketItemId())
                 .basketItemAmount(basketItem.getBasketItemAmount())
                 .count(basketItem.getCount())
-                .product(productDto)
+                .product(product)
                 .build();
     }
 }
