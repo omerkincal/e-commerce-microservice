@@ -1,0 +1,7 @@
+
+r
+java:S3655E"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÐÕÞÍüÿÿÿÿ8—°—×º1
+o
+java:S6204*"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8ž°—×º1
+U
+java:S1612)"8Replace this lambda with method reference 'this::toDto'.(šÏß÷8ž°—×º1

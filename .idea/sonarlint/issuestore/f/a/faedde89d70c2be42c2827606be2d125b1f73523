@@ -1,0 +1,11 @@
+
+r
+java:S3655^"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÃÄÎ«øÿÿÿÿ8ãÀ‡×º1
+o
+java:S62042"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8éÀ‡×º1
+Z
+java:S16121"8Replace this lambda with method reference 'this::toDto'.(ÇÈ“ôüÿÿÿÿ8êÀ‡×º1
+j
+java:S1128	"HRemove this unused import 'org.springframework.web.client.RestTemplate'.(Îö¼Şûÿÿÿÿ8»íûº1
+W
+java:S1128"5Remove this unused import 'javax.sound.sampled.Port'.(ŠÔøÿÿÿÿ8îÀ‡×º1
