@@ -1,4 +1,4 @@
-package com.example.auth.domain.user.api.exception;
+package com.example.auth.library.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
     String  fieldValue;
@@ -11,4 +11,6 @@ public class ResourceNotFoundException extends RuntimeException{
         this.fieldValue = fieldValue;
         this.resourceName = resourceName;
     }
+
+
 }

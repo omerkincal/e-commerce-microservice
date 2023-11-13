@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class BasketController {
     private final BasketService service;
 
-    @PostMapping("add-product-to-basket")
+    @PostMapping("add-to-basket")
     public ResponseEntity<BasketResponse> addProductToBasket(@RequestBody AddProductRequest request){
         return new ResponseEntity<>(toResponse(service.addProductToBasket(request.toDto())), HttpStatus.OK);
     }
@@ -32,6 +32,7 @@ public class BasketController {
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
+
     public BasketResponse toResponse(BasketDto basketDto){
         return BasketResponse.builder()
                 .basketId(basketDto.getBasketId())

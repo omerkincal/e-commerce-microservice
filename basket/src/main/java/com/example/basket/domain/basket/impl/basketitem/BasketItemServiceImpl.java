@@ -35,6 +35,11 @@ public class BasketItemServiceImpl implements BasketItemService {
         repository.delete(basketItem);
     }
 
+    public BasketItem findBasketItemById(String basketItemId){
+        BasketItem basketItem = repository.findBasketItemByBasketItemId(Long.valueOf(basketItemId));
+        return basketItem;
+    }
+
     public BasketItemDto toDto(BasketItem basketItem) {
         Product product = getProduct(String.valueOf(basketItem.getProductId()));
         return BasketItemDto.builder()

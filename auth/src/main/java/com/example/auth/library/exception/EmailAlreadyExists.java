@@ -1,4 +1,4 @@
-package com.example.auth.domain.user.api.exception;
+package com.example.auth.library.exception;
 
 public class EmailAlreadyExists extends RuntimeException{
     private String message;

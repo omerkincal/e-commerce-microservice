@@ -1,4 +1,4 @@
-package com.example.auth.domain.user.api.exception;
+package com.example.auth.library.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

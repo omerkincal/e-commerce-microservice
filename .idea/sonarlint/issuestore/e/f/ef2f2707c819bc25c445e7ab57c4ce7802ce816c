@@ -1,11 +1,15 @@
 
+_
+java:S2259"BA "NullPointerException" could be thrown; "user" is nullable here.(‹åõ¤8Ê—‰Ä¼1
 r
-java:S3655*"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÚüÇ÷ıÿÿÿÿ8æÄ¬º1
+java:S36555"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÚüÇ÷ıÿÿÿÿ8Ê—‰Ä¼1
 r
-java:S3655$"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÚüÇ÷ıÿÿÿÿ8æÄ¬º1
-r
-java:S36555"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÚüÇ÷ıÿÿÿÿ8æÄ¬º1
+java:S3655@"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÚüÇ÷ıÿÿÿÿ8Ê—‰Ä¼1
+¨
+java:S4449$"ŠAnnotate the parameter with @javax.annotation.Nullable in method 'save' declaration, or make sure that null can not be passed as argument.(Óì¸8Ë—‰Ä¼1
 o
-java:S6204>"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8¿Äöº1
+java:S6204I"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8Ô—‰Ä¼1
 Z
-java:S1612="8Replace this lambda with method reference 'this::toDto'.(½Ö×‚øÿÿÿÿ8¿Äöº1
+java:S1612H"8Replace this lambda with method reference 'this::toDto'.(½Ö×‚øÿÿÿÿ8Ö—‰Ä¼1
+s
+java:S1128"VRemove this unused import 'com.example.auth.library.exception.GlobalExceptionHandler'.(Àøá‰8–Ş‰Ä¼1

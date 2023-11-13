@@ -1,0 +1,12 @@
+
+W	java:S125""<This block of commented-out lines of code should be removed.(œğ’?8ĞĞ±Å¼1
+W	java:S1254"<This block of commented-out lines of code should be removed.(‘¥¦.8€Æ¿Å¼1
+]	java:S125;"<This block of commented-out lines of code should be removed.(€¸˜øÿÿÿÿ8Á×ÁÅ¼1
+]	java:S125>"<This block of commented-out lines of code should be removed.(ªœª»şÿÿÿÿ8ÊÇÆ¼1
+X	java:S125M"<This block of commented-out lines of code should be removed.(º±œå8ì¸ÇÆ¼1
+p
+java:S6204—"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(äÒˆ8ÜĞ±Å¼1
+h
+java:S1612–"EReplace this lambda with method reference 'basketItemService::toDto'.(ÅğæÎıÿÿÿÿ8İĞ±Å¼1
+Q
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8û¸ÇÆ¼1

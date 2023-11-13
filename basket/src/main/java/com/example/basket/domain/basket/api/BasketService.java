@@ -7,6 +7,6 @@ import java.util.List;
 public interface BasketService {
     BasketDto addProductToBasket(BasketDto basketDto);
     BasketDto findBasket(String userId);
-    void removeProductFromBasket(String basketItemId);
+    void removeProductFromBasket(String productId);
     User getUser(String userId);
 }

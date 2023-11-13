@@ -2,6 +2,9 @@ package com.example.auth.domain.user.impl;
 
 import com.example.auth.domain.user.api.UserDto;
 import com.example.auth.domain.user.api.UserService;
+import com.example.auth.library.exception.EmailAlreadyExists;
+import com.example.auth.library.exception.GlobalExceptionHandler;
+import com.example.auth.library.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +22,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserDto userDto) {
-        User user = toEntity(userDto);
-        if(user.getName().equals("admin")){
-            user.setRole(STATUS_ADMIN);
-        }else if (user.getName().equals("super-admin")){
-            user.setRole(STATUS_SUPER_ADMIN);
+        User user = repository.findUserByEmail(userDto.getEmail());
+
+        if (user == null) {
+            User newUser = toEntity(userDto);
+            if (newUser.getName().equals("admin")) {
+                newUser.setRole(STATUS_ADMIN);
+            } else if (user.getName().equals("super-admin")) {
+                newUser.setRole(STATUS_SUPER_ADMIN);
+            } else {
+                newUser.setRole(STATUS_CUSTOMER);
+            }
+            user = repository.save(user);
+            return toDto(user);
         }else {
-            user.setRole(STATUS_CUSTOMER);
+            throw new EmailAlreadyExists("Email already exists for another user");
         }
-        user = repository.save(user);
-        return toDto(user);
     }
 
     @Override
     public UserDto getUser(String userId) {
-        User user = repository.findById(Long.valueOf(userId)).get();
+        User user = repository.findById(Long.valueOf(userId)).orElseThrow(
+                () ->  new  ResourceNotFoundException(userId, "User", "id")
+        );
         return toDto(user);
     }
 

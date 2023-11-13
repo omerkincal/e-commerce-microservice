@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -46,7 +47,30 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public void removeProductFromBasket(String basketItemId) {
         basketItemService.delete(basketItemId);
+
+
+        //BasketItem basketItem = basketItemService.findBasketItemById(basketItemId);
+        //Basket basket = repository.findBasketByBasketId(basketItem.getBasket().getBasketId());
+        // Sepet içindeki ürünü bul ve kaldır
+        //basketItemService.delete(String.valueOf(basketItem.getBasketItemId()));
+        //basket.setBasketItemList(basket.getBasketItemList());
+        //basket.setTotalAmount(calculateBasketAmount(basket.getBasketId()));
+
+        //repository.save(basket);
+
+
+        /*Basket basket = repository.findBasketByCustomer_CustomerIdAndStatusEquals(Integer.parseInt(customerId), BASKET_STATUS_NONE);
+        List<BasketItem> basketItemList = basket.getBasketItemList();
+        for (BasketItem basketItem : basketItemList){
+            if (basketItem.getProduct().getProductId() == productId){
+                basketItemService.delete(basketItem);
+            }
+        }
+        basket.setBasketItemList(basketItemList);
+        repository.save(basket);*/
     }
+
+
 
     @Override
     public BasketDto addProductToBasket(BasketDto basketDto) {
