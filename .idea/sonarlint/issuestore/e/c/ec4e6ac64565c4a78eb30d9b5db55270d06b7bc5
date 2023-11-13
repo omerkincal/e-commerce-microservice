@@ -3,3 +3,5 @@ t
 java:S6204*"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(Ø’³“øÿÿÿÿ8’‹µÃ»1
 Z
 java:S1612)"=Replace this lambda with method reference 'this::toResponse'.(²ÈèÔ8”‹µÃ»1
+G
+java:S1128"*Remove this unused import 'lombok.Getter'.(ùÒµÙ8›“Û ¼1

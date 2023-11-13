@@ -7,10 +7,9 @@ import com.example.basket.domain.basket.api.product.Product;
 import com.example.basket.domain.basket.api.user.User;
 import com.example.basket.domain.basket.impl.basketitem.BasketItem;
 import com.example.basket.domain.basket.impl.basketitem.BasketItemServiceImpl;
+import com.example.basket.library.feignclient.AuthCallableFeignClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -30,13 +29,12 @@ public class BasketServiceImpl implements BasketService {
 
     private final BasketRepository repository;
     private final BasketItemServiceImpl basketItemService;
-    private static final String AUTH_URL = "http://localhost:8090/auth/users/";
-    private final RestTemplate restTemplate;
+    private final AuthCallableFeignClient authCallableFeignClient;
+    //private final RestTemplate restTemplate;
 
     @Override
     public User getUser(String userId){
-        ResponseEntity<User> user = restTemplate.getForEntity(AUTH_URL + userId, User.class);
-        return user.getBody();
+        return authCallableFeignClient.getUserById(userId);
     }
 
     @Override
@@ -48,15 +46,6 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public void removeProductFromBasket(String basketItemId) {
         basketItemService.delete(basketItemId);
-        /*Basket basket = repository.findBasketByCustomer_CustomerIdAndStatusEquals(Integer.parseInt(customerId), BASKET_STATUS_NONE);
-        List<BasketItem> basketItemList = basket.getBasketItemList();
-        for (BasketItem basketItem : basketItemList){
-            if (basketItem.getProduct().getProductId() == productId){
-                basketItemService.delete(basketItem);
-            }
-        }
-        basket.setBasketItemList(basketItemList);
-        repository.save(basket);*/
     }
 
     @Override

@@ -1,0 +1,5 @@
+
+t
+java:S62044"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(Ø’³“øÿÿÿÿ8¦£Æë»1
+_
+java:S16123"=Replace this lambda with method reference 'this::toResponse'.(º•„ëþÿÿÿÿ8¦£Æë»1

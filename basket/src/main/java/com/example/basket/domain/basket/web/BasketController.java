@@ -2,20 +2,15 @@ package com.example.basket.domain.basket.web;
 
 import com.example.basket.domain.basket.api.BasketDto;
 import com.example.basket.domain.basket.api.BasketService;
-import com.example.basket.domain.basket.api.basketitem.BasketItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("basket")
 @RequiredArgsConstructor
 public class BasketController {
-
-
     private final BasketService service;
 
     @PostMapping("add-product-to-basket")
@@ -37,8 +32,6 @@ public class BasketController {
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
-
-
     public BasketResponse toResponse(BasketDto basketDto){
         return BasketResponse.builder()
                 .basketId(basketDto.getBasketId())
